@@ -1,0 +1,25 @@
+# Minimal compose — PostgreSQL only.
+# Use this when running the backend and frontend locally (npm run dev).
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ccm_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       carbon_credits_db
+      POSTGRES_USER:     postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/init-db.sh:/docker-entrypoint-initdb.d/00_init-db.sh:ro
+      - ./backend/src/db:/docker-entrypoint-initdb.d/db:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d carbon_credits_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
