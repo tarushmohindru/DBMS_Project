@@ -7,8 +7,8 @@ import { analyticsService } from '@/services';
 
 interface PublicSummary {
   credits_issued: number;
-  companies:      number;
-  transactions:   number;
+  companies: number;
+  transactions: number;
 }
 
 export default function LoginPage() {
@@ -16,9 +16,9 @@ export default function LoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error,    setError]    = useState('');
-  const [loading,  setLoading]  = useState(false);
-  const [summary,  setSummary]  = useState<PublicSummary | null>(null);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [summary, setSummary] = useState<PublicSummary | null>(null);
 
   useEffect(() => {
     analyticsService.publicSummary()
@@ -68,8 +68,8 @@ export default function LoginPage() {
             <div className="mt-8 grid grid-cols-3 gap-4">
               {[
                 { label: 'Credits Issued', value: summary ? summary.credits_issued.toLocaleString('en-IN', { maximumFractionDigits: 2 }) : '—' },
-                { label: 'Companies',      value: summary ? summary.companies.toLocaleString('en-IN') : '—' },
-                { label: 'Transactions',   value: summary ? summary.transactions.toLocaleString('en-IN') : '—' },
+                { label: 'Companies', value: summary ? summary.companies.toLocaleString('en-IN') : '—' },
+                { label: 'Transactions', value: summary ? summary.transactions.toLocaleString('en-IN') : '—' },
               ].map(stat => (
                 <div key={stat.label} className="bg-white/10 rounded-xl p-4">
                   <div className="text-2xl font-bold">{stat.value}</div>
@@ -138,7 +138,7 @@ export default function LoginPage() {
             </form>
 
             <p className="mt-6 text-center text-sm text-gray-500">
-              New company?{' '}
+              New to the platform?{' '}
               <Link href="/signup" className="font-medium text-eco-700 hover:text-eco-800">
                 Sign up
               </Link>
