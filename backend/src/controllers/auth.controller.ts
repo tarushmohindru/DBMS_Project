@@ -38,6 +38,31 @@ export async function registerUser(req: Request, res: Response): Promise<void> {
   }
 }
 
+export async function signupUser(req: Request, res: Response): Promise<void> {
+  const parse = registerUserSchema.safeParse(req.body);
+  if (!parse.success) {
+    res.status(400).json({ success: false, error: parse.error.errors[0].message });
+    return;
+  }
+  try {
+    const user = await AuthService.registerUser(parse.data);
+    res.status(201).json({ success: true, data: user });
+  } catch (err) {
+    const mapped = mapDbError(err);
+    res.status(mapped.status).json({ success: false, error: mapped.message, code: mapped.code });
+  }
+}
+
+export async function listUsers(_req: Request, res: Response): Promise<void> {
+  try {
+    const users = await AuthService.listUsers();
+    res.json({ success: true, data: users });
+  } catch (err) {
+    const mapped = mapDbError(err);
+    res.status(mapped.status).json({ success: false, error: mapped.message, code: mapped.code });
+  }
+}
+
 export function getMe(req: Request, res: Response): void {
   res.json({ success: true, data: req.user });
 }

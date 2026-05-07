@@ -19,15 +19,30 @@ self.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/compliance": [
+    "/credits": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/compliance.js"
+      "static/chunks/pages/credits.js"
     ],
-    "/reports": [
+    "/dashboard": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/reports.js"
+      "static/chunks/pages/dashboard.js"
+    ],
+    "/login": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/login.js"
+    ],
+    "/plants": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/plants.js"
+    ],
+    "/production-logs": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/production-logs.js"
     ]
   },
   "ampFirstPages": []

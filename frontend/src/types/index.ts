@@ -8,6 +8,12 @@ export interface AuthUser {
   authority_id?: number | null;
 }
 
+export interface RegisteredUser extends AuthUser {
+  company_name?:   string | null;
+  authority_name?: string | null;
+  created_at:      string;
+}
+
 export interface Company {
   company_id:      number;
   name:            string;

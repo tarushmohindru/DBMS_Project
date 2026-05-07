@@ -21,6 +21,7 @@ const navItems: NavItem[] = [
   { href: '/transactions',     label: 'Transactions',     icon: '⇄'  },
   { href: '/compliance',       label: 'Compliance',       icon: '📋' },
   { href: '/reports',          label: 'Reports',          icon: '📈', roles: ['regulatory_authority', 'marketplace_admin'] },
+  { href: '/users',            label: 'Users',            icon: '👥', roles: ['marketplace_admin'] },
 ];
 
 const roleLabel: Record<UserRole, string> = {

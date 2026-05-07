@@ -8,7 +8,6 @@ import { authenticate, authorize } from '../middleware/auth';
 const router = Router();
 
 router.get('/authorities',
-  authenticate,
   listAuthorities);
 
 router.get('/summary',

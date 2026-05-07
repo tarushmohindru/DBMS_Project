@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { analyticsService } from '@/services';
 
@@ -93,6 +94,11 @@ export default function LoginPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+              {router.query.registered === '1' && (
+                <div className="p-3 bg-green-50 border border-green-100 rounded-xl text-sm text-green-700">
+                  Account created. Sign in with your new credentials.
+                </div>
+              )}
               {error && (
                 <div className="p-3 bg-red-50 border border-red-100 rounded-xl text-sm text-red-600">
                   {error}
@@ -130,6 +136,13 @@ export default function LoginPage() {
                 {loading ? 'Signing in...' : 'Sign In'}
               </button>
             </form>
+
+            <p className="mt-6 text-center text-sm text-gray-500">
+              New company?{' '}
+              <Link href="/signup" className="font-medium text-eco-700 hover:text-eco-800">
+                Sign up
+              </Link>
+            </p>
           </div>
         </div>
       </div>

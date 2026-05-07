@@ -51,3 +51,21 @@ export async function registerUser(input: RegisterUserInput) {
   );
   return result.rows[0];
 }
+
+export async function listUsers() {
+  const result = await pool.query(
+    `SELECT u.user_id,
+            u.username,
+            u.role,
+            u.company_id,
+            c.name  AS company_name,
+            u.authority_id,
+            ra.name AS authority_name,
+            u.created_at
+     FROM   Users u
+     LEFT JOIN Company c              ON u.company_id = c.company_id
+     LEFT JOIN RegulatoryAuthority ra ON u.authority_id = ra.authority_id
+     ORDER  BY u.created_at DESC, u.user_id DESC`
+  );
+  return result.rows;
+}

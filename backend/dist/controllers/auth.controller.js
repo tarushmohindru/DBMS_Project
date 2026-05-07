@@ -35,6 +35,8 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = login;
 exports.registerUser = registerUser;
+exports.signupUser = signupUser;
+exports.listUsers = listUsers;
 exports.getMe = getMe;
 const AuthService = __importStar(require("../services/auth.service"));
 const auth_validator_1 = require("../validators/auth.validator");
@@ -69,6 +71,31 @@ async function registerUser(req, res) {
     try {
         const user = await AuthService.registerUser(parse.data);
         res.status(201).json({ success: true, data: user });
+    }
+    catch (err) {
+        const mapped = (0, errors_1.mapDbError)(err);
+        res.status(mapped.status).json({ success: false, error: mapped.message, code: mapped.code });
+    }
+}
+async function signupUser(req, res) {
+    const parse = auth_validator_1.registerUserSchema.safeParse(req.body);
+    if (!parse.success) {
+        res.status(400).json({ success: false, error: parse.error.errors[0].message });
+        return;
+    }
+    try {
+        const user = await AuthService.registerUser(parse.data);
+        res.status(201).json({ success: true, data: user });
+    }
+    catch (err) {
+        const mapped = (0, errors_1.mapDbError)(err);
+        res.status(mapped.status).json({ success: false, error: mapped.message, code: mapped.code });
+    }
+}
+async function listUsers(_req, res) {
+    try {
+        const users = await AuthService.listUsers();
+        res.json({ success: true, data: users });
     }
     catch (err) {
         const mapped = (0, errors_1.mapDbError)(err);

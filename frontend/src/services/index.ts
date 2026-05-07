@@ -4,6 +4,9 @@ import api from './api';
 export const authService = {
   login:    (username: string, password: string) =>
     api.post('/auth/login', { username, password }).then(r => r.data.data),
+  users:    () => api.get('/auth/users').then(r => r.data.data),
+  signup:   (data: object) =>
+    api.post('/auth/signup', data).then(r => r.data.data),
   register: (data: object) =>
     api.post('/auth/register', data).then(r => r.data.data),
   me:       () => api.get('/auth/me').then(r => r.data.data),

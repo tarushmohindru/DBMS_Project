@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUser = loginUser;
 exports.registerUser = registerUser;
+exports.listUsers = listUsers;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("../config/db");
@@ -41,5 +42,20 @@ async function registerUser(input) {
      VALUES ($1, $2, $3, $4, $5)
      RETURNING user_id, username, role, company_id, authority_id`, [input.username, hash, input.role, input.company_id ?? null, input.authority_id ?? null]);
     return result.rows[0];
+}
+async function listUsers() {
+    const result = await db_1.pool.query(`SELECT u.user_id,
+            u.username,
+            u.role,
+            u.company_id,
+            c.name  AS company_name,
+            u.authority_id,
+            ra.name AS authority_name,
+            u.created_at
+     FROM   Users u
+     LEFT JOIN Company c              ON u.company_id = c.company_id
+     LEFT JOIN RegulatoryAuthority ra ON u.authority_id = ra.authority_id
+     ORDER  BY u.created_at DESC, u.user_id DESC`);
+    return result.rows;
 }
 //# sourceMappingURL=auth.service.js.map
